@@ -32,7 +32,7 @@ int red = 30;
 int green = 160;
 int blue = 40;
 // brightness of LCD display
-int brightness = 255; // you can change the overall brightness by range 0 -> 255
+int brightness = 180; // you can change the overall brightness by range 0 -> 255
 
 //operating mode switch pin
 const byte switchPin = A1;
@@ -42,7 +42,6 @@ int switchState;
 bool mode2 = false;
 
 // timekeeping variables 
-int currentSec = 0;
 int currentMin = 0;
 int currentHour = 0;
 int currentDay = 1;
@@ -115,14 +114,10 @@ void setup() {
 void loop() {
   // time keeping
   unsigned long currentTime = millis();
-  // calculate seconds, minutes, hours 
-  if (currentTime - previousTime > 1000){
-      currentSec++;   
+  // calculate minutes, hours, days, months and years
+  if (currentTime - previousTime > 60000){
+      currentMin++;   
       previousTime = currentTime;
-  }
-  if (currentSec >= 60) {
-    currentSec = 0;
-    currentMin ++;
   }
   if (currentMin >= 60){
     currentMin = 0;
@@ -344,11 +339,11 @@ void loop() {
     lcd.print(selectToken);
     lcd.setCursor(0,1);
     if(currentHour >= 4 and currentHour < 12){
-      lcd.print("Good morning,");
+      lcd.print("Good morning,  ");
     }else if (currentHour >= 12 and currentHour < 19){
       lcd.print("Good afternoon,");
     } else {
-      lcd.print("Good evening,");
+      lcd.print("Good evening,  ");
     }
     lcd.setCursor(0,2);
     lcd.print("Press red button");
