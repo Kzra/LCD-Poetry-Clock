@@ -31,4 +31,5 @@ for i in range(2,16):
                     f.write(l)
                 except UnicodeEncodeError: 
                     continue
+        f.write('\n')
         f.close()
